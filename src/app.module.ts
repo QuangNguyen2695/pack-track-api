@@ -6,6 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './module/auth/auth/auth.module';
 import { AuthRescueModule } from './module/auth/auth-rescue/auth-rescue.module';
 import { UserModule } from './module/user/user.module';
+import { DeviceModule } from './module/device/device.module';
+import { PackModule } from './module/pack/pack.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { UserModule } from './module/user/user.module';
     AuthModule,
     AuthRescueModule,
     UserModule,
+    DeviceModule,
+    PackModule
   ],
   controllers: [AppController],
   providers: [AppService],

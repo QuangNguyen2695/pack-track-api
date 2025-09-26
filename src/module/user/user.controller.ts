@@ -50,7 +50,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('user', 'admin', 'driver')
+  @Roles('user', 'admin')
   @UseInterceptors(StripFields(['password']))
   @Get(':id')
   findOne(@Param('id') id: string, @CurrentUser(ParseObjectIdPipe) user: UserTokenDto) {
@@ -58,7 +58,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('user', 'admin', 'driver')
+  @Roles('user', 'admin')
   @UseInterceptors(StripFields(['password']))
   @Get('role/:role')
   findOneByRole(@Param('role') role: string, @CurrentUser(ParseObjectIdPipe) user: UserTokenDto) {
@@ -66,7 +66,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('user', 'admin', 'driver')
+  @Roles('user', 'admin')
   @UseInterceptors(StripFields(['password']))
   @Get('find-all/:role')
   findAllByRole(@Param('role') role: string, @CurrentUser(ParseObjectIdPipe) user: UserTokenDto) {
@@ -74,7 +74,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('user', 'admin', 'driver')
+  @Roles('user', 'admin')
   @UseInterceptors(StripFields(['password']))
   @Get('find-all')
   findAll(@CurrentUser(ParseObjectIdPipe) user: UserTokenDto) {
@@ -127,7 +127,7 @@ export class UserController {
   @Post('/search')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @UseInterceptors(StripFields(['password']))
-  @Roles('user', 'admin', 'driver')
+  @Roles('user', 'admin')
   search(@Body() query: SearchUsersTypesQuery, @CurrentUser(ParseObjectIdPipe) user: UserTokenDto) {
     const { pageIdx = 0, pageSize = 0, keyword = '', sortBy, filters } = query;
     return this.userService.search(+pageIdx, +pageSize, keyword, sortBy, filters);
