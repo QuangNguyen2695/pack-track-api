@@ -51,7 +51,7 @@ export class PackController {
     return { data: await this.packService.markVerified(id) };
   }
 
-  @Post('search')
+  @Post('/search')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('user', 'admin')
   search(@Body(ParseObjectIdPipe) query: SearchPackQuery, @CurrentUser() user: UserTokenDto): Promise<SearchPackRes> {

@@ -21,6 +21,9 @@ export class UserDto {
   _id: Types.ObjectId;
 
   @Expose()
+  subscriptionId: Types.ObjectId;
+
+  @Expose()
   avatar: string;
 
   @Expose()

@@ -103,3 +103,10 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 node version 22.13.0
 angular version 19.1.1
 npm version 11.1.0
+
+
+npm ci            # hoặc: npm install
+npm run build     # ví dụ NestJS: tạo dist/main.js
+pm2 reload api    # hoặc: pm2 restart api
+
+pm2 start dist/main.js --name api

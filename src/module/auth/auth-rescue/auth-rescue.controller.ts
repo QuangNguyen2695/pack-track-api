@@ -9,7 +9,10 @@ export class AuthRescueController {
 
   @Post('request')
   async request(@Body() requestAuthRescueDto: RequestAuthRescueDto) {
-    const res = await this.authRescueService.requestAuthRescue(requestAuthRescueDto.identifier, requestAuthRescueDto.purpose);
+    const res = await this.authRescueService.requestAuthRescue(
+      requestAuthRescueDto.identifier,
+      requestAuthRescueDto.purpose,
+    );
     // PRODUCTION: return { success: true } (không trả Token)
     return res;
   }

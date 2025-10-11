@@ -8,6 +8,10 @@ import { AuthRescueModule } from './module/auth/auth-rescue/auth-rescue.module';
 import { UserModule } from './module/user/user.module';
 import { DeviceModule } from './module/device/device.module';
 import { PackModule } from './module/pack/pack.module';
+import { SubscriptionModule } from './module/subscription/subscription.module';
+import { UserSubscriptionUsageModule } from './module/user-subscription-usage/user-subscription-usage.module';
+import { UserSubscriptionModule } from './module/user-subscription/user-subscription.module';
+import { AuthRewardModule } from './module/auth/auth-reward/auth-reward.module';
 
 @Module({
   imports: [
@@ -26,7 +30,11 @@ import { PackModule } from './module/pack/pack.module';
     AuthRescueModule,
     UserModule,
     DeviceModule,
-    PackModule
+    PackModule,
+    SubscriptionModule,
+    UserSubscriptionModule,
+    UserSubscriptionUsageModule,
+    AuthRewardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

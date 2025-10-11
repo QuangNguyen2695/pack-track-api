@@ -41,19 +41,19 @@ export class DeviceService {
       { $set: { ...dto, lastActiveAt: new Date() } },
       { new: true },
     );
-    if (!doc) throw new NotFoundException('Device not found');
+    if (!doc) return null;
     return doc;
   }
 
   async findById(userId: Types.ObjectId, id: Types.ObjectId) {
     const doc = await this.deviceModel.findOne({ _id: id, userId, deletedAt: null }).lean();
-    if (!doc) throw new NotFoundException('Device not found');
+    if (!doc) return null;
     return doc;
   }
 
   async findByDeviceId(userId: Types.ObjectId, deviceId: string) {
     const doc = await this.deviceModel.findOne({ deviceId, userId, deletedAt: null }).lean();
-    if (!doc) throw new NotFoundException('Device not found');
+    if (!doc) return null;
     return doc;
   }
 
@@ -96,7 +96,7 @@ export class DeviceService {
 
   async markPrimary(userId: string, id: string) {
     const doc = await this.deviceModel.findOne({ _id: id, userId, deletedAt: null });
-    if (!doc) throw new NotFoundException('Device not found');
+    if (!doc) return null;
 
     await this.deviceModel.updateMany({ userId, isPrimary: true }, { $set: { isPrimary: false } });
     doc.isPrimary = true;
@@ -111,7 +111,7 @@ export class DeviceService {
       { $set: { pushToken, notificationEnabled: enabled ?? true, lastActiveAt: new Date() } },
       { new: true },
     );
-    if (!doc) throw new NotFoundException('Device not found');
+    if (!doc) return null;
     return doc;
   }
 
@@ -121,7 +121,7 @@ export class DeviceService {
       { $set: { deletedAt: new Date(), isPrimary: false } },
       { new: true },
     );
-    if (!doc) throw new NotFoundException('Device not found');
+    if (!doc) return null;
     return { success: true };
   }
 }

@@ -1,5 +1,5 @@
 // request-otp.dto.ts
-import { IsIn, IsNotEmpty, IsString, Length } from 'class-validator';
+import { IsIn, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 
 export class RequestAuthRescueDto {
   @IsString()

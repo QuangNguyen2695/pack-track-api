@@ -16,10 +16,17 @@ import { UpdatePasswordUserDto, UpdateUserDto } from './dto/update-user.dto';
 import { UserDocument } from './schema/user.schema';
 import { SearchUsersRes, UserAddressDto, UserDto } from './dto/user.dto';
 import { plainToInstance } from 'class-transformer';
+import { UserSubscriptionDocument } from '../user-subscription/schema/user-subscription.schema';
+import { UserSubscriptionService } from '../user-subscription/user-subscription.service';
+import { of } from 'rxjs';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(UserDocument.name) private userModel: Model<UserDocument>) {}
+  constructor(
+    @InjectModel(UserDocument.name) private userModel: Model<UserDocument>,
+    @Inject(forwardRef(() => UserSubscriptionService))
+    private readonly userSubscriptionService: UserSubscriptionService,
+  ) {}
 
   // Tạo mới người dùng
   async create(createUserDto: CreateUserDto): Promise<UserDto> {
@@ -51,6 +58,10 @@ export class UserService {
     });
 
     const savedUser = await newUser.save();
+
+    if (!savedUser) throw new UnauthorizedException('Đăng ký không thành công, vui lòng thử lại.');
+    this.userSubscriptionService.assignDefaultSubscriptionToUser(savedUser._id as Types.ObjectId).catch();
+
     return plainToInstance(UserDto, savedUser.toObject());
   }
 
@@ -224,6 +235,12 @@ export class UserService {
     }
 
     const user = plainToInstance(UserDto, userModel);
+
+    const userSubscription = await this.userSubscriptionService.findByUserId(user._id);
+
+    if (userSubscription) {
+      user.subscriptionId = userSubscription.subscriptionId;
+    }
 
     return user;
   }
